@@ -1,0 +1,16 @@
+{
+  "name": "daonative-proposals",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "npx graph codegen",
+    "build": "npx graph build",
+    "deploy": "npx graph deploy --node https://api.thegraph.com/deploy/ lrnt/daonative-proposals",
+    "create-local": "npx graph create --node http://localhost:8020/ lrnt/daonative-proposals",
+    "remove-local": "npx graph remove --node http://localhost:8020/ lrnt/daonative-proposals",
+    "deploy-local": "npx graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 lrnt/daonative-proposals"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.27.0",
+    "@graphprotocol/graph-ts": "0.24.1"
+  }
+}

@@ -1,0 +1,12 @@
+type Room @entity {
+  id: ID!
+  uri: String!
+}
+
+type Proposal @entity {
+  id: ID!
+  amount: BigInt!
+  room: Room!
+  uri: String!
+  status: String!
+}

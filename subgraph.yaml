@@ -1,0 +1,51 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: RoomCreator
+    network: matic
+    source:
+      address: "0xb89f8e5DB0A595533eF05F3765c51E85361cA913"
+      abi: RoomCreator
+      startBlock: 22078465	
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Room
+      abis:
+        - name: RoomCreator
+          file: ./abis/RoomCreator.json
+        - name: Room
+          file: ./abis/Room.json
+      eventHandlers:
+        - event: RoomCreated(indexed address)
+          handler: handleRoomCreated
+      file: ./src/mappings/roomcreator.ts
+templates:
+  - kind: ethereum/contract
+    name: Room
+    network: matic
+    source:
+      abi: Room
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Proposal
+      abis:
+        - name: Room
+          file: ./abis/Room.json
+      eventHandlers:
+        - event: Approve(uint256,bytes32)
+          handler: handleApproveProposal
+        - event: Reject(bytes32)
+          handler: handleRejectProposal
+        - event: Close(bytes32)
+          handler: handleCloseProposal
+        - event: SubmitProposal((bytes32,address,string,uint256,uint8))
+          handler: handleSubmitProposal
+      file: ./src/mappings/room.ts
